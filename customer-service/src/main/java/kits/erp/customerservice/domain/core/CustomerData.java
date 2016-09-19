@@ -3,7 +3,7 @@ package kits.erp.customerservice.domain.core;
 public class CustomerData {
 
 	static CustomerData createEmptyCustomerData() {
-		return new CustomerData(Name.createEmptyName(), Address.createEmptyAddress(), true, null, EmailAddress.createEmptyEmailAddress(), PhoneNumber.createEmptyPhoneNumber(), null, "");
+		return new CustomerData(Name.createEmptyName(), Address.createEmptyAddress(), true, null, EmailAddress.createEmptyEmailAddress(), PhoneNumber.createEmptyPhoneNumber(), "");
 	}
 	
 	public final Name name;
@@ -12,18 +12,16 @@ public class CustomerData {
 	public final Address invoiceAddress;
 	public final EmailAddress emailAddress;
 	public final PhoneNumber phoneNumber;
-	public final WebLogin webLogin;
 	public final String comment;
 	
 	public CustomerData(Name name, Address address, boolean invoiceAddressIsTheSame, Address invoiceAddress, EmailAddress emailAddress,
-			PhoneNumber phoneNumber, WebLogin webLogin, String comment) {
+			PhoneNumber phoneNumber, String comment) {
 		this.name = name;
 		this.address = address;
 		this.invoiceAddressIsTheSame = invoiceAddressIsTheSame;
 		this.invoiceAddress = invoiceAddress;
 		this.emailAddress = emailAddress;
 		this.phoneNumber = phoneNumber;
-		this.webLogin = webLogin;
 		this.comment = comment;
 	}
 
@@ -33,7 +31,6 @@ public class CustomerData {
 			   invoiceAddress != null && invoiceAddress.matches(filter) ||
 			   emailAddress != null && emailAddress.matches(filter) ||
 			   phoneNumber != null && phoneNumber.matches(filter) ||
-			   webLogin != null && webLogin.matches(filter) ||
 			   comment != null && comment.contains(filter);
 	}
 	
@@ -49,7 +46,6 @@ public class CustomerData {
 		.append("invoice address: ").append(invoiceAddressIsTheSame ? "same" : invoiceAddress).append(" ")
 		.append("email: ").append(emailAddress).append(" ")
 		.append("phone: ").append(phoneNumber).append(" ")
-		.append("web login: ").append(webLogin).append(" ")
 		.append("comment: ").append(comment).append(" ").toString();
 	}
 

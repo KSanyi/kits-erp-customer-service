@@ -3,7 +3,7 @@ package kits.erp.customerservice.infrastructure.server;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.httprpc.RequestDispatcherServlet;
+import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,14 +27,15 @@ public class CustomerServiceServer extends Server {
 	
 	private ServletContextHandler createServletContextHandler() {
 		ServletContextHandler servletContextHandler = new ServletContextHandler();
-		servletContextHandler.setClassLoader(Thread.currentThread().getContextClassLoader());
-		servletContextHandler.addServlet(createServletHolder(), "/customer/*");
+		//servletContextHandler.setContextPath("");
+		servletContextHandler.addServlet(createServletHolder(), "/*");
+		
 		return servletContextHandler;
 	}
 	
 	private ServletHolder createServletHolder() {
-		ServletHolder servletHolder = new ServletHolder(new RequestDispatcherServlet());
-		servletHolder.setInitParameter("serviceClassName", CustomerWebService.class.getCanonicalName());
+		ServletHolder servletHolder = new ServletHolder(ServletContainer.class);
+		servletHolder.setInitParameter( "jersey.config.server.provider.classnames", CustomerWebService.class.getCanonicalName());
 		return servletHolder;
 	}
 	

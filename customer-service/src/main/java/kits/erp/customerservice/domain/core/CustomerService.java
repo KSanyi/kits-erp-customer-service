@@ -1,6 +1,9 @@
 package kits.erp.customerservice.domain.core;
 
 import java.util.List;
+import java.util.Optional;
+
+import kits.util.collections.Mappers;
 
 public class CustomerService {
 
@@ -36,6 +39,16 @@ public class CustomerService {
 	
 	public List<Customer> loadAllCustomers() {
 		return customerRepository.loadAllCustomers();
+	}
+	
+	public Optional<Customer> loadCustomer(CustomerId customerId){
+		return customerRepository.loadAllCustomers().stream()
+		.filter(c -> c.customerId.equals(customerId))
+		.findAny();
+	}
+	
+	public List<Customer> findCustomer(String searchString){
+		return Mappers.filter(loadAllCustomers(), c -> c.matches(searchString));
 	}
 	
 }

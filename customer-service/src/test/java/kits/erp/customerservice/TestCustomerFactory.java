@@ -9,7 +9,6 @@ import kits.erp.customerservice.domain.core.CustomerId;
 import kits.erp.customerservice.domain.core.EmailAddress;
 import kits.erp.customerservice.domain.core.Name;
 import kits.erp.customerservice.domain.core.PhoneNumber;
-import kits.erp.customerservice.domain.core.WebLogin;
 import kits.erp.customerservice.infrastructure.ResourceFileLoader;
 import kits.util.testheplers.RandomWordPicker;
 
@@ -33,10 +32,9 @@ public class TestCustomerFactory {
 		}
 		EmailAddress emailAddress = generateEmailAddress(name);
 		PhoneNumber phoneNumber = generatePhoneNumber();
-		WebLogin webLogin = random.nextInt(5) == 0 && !emailAddress.isEmpty() ? new WebLogin(emailAddress, "*****") : null;
 		String comment = random.nextInt(10) == 0 ? "Fontos ugyfel" : "";
 		
-		CustomerData customerData = new CustomerData(name, address, invoiceAddressIsTheSame, invoiceAddress, emailAddress, phoneNumber, webLogin, comment);
+		CustomerData customerData = new CustomerData(name, address, invoiceAddressIsTheSame, invoiceAddress, emailAddress, phoneNumber, comment);
 		return new Customer(generateCustomerId(), customerData);
 	}
 	

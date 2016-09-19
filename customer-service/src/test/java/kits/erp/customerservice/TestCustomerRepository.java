@@ -32,7 +32,7 @@ public class TestCustomerRepository implements CustomerRepository {
 	}
 
 	public void deleteCustomer(CustomerId customerId) {
-		customers.stream().filter(c -> c.customerId == customerId).findAny().ifPresent(c -> customers.remove(c));
+		customers.stream().filter(c -> c.customerId.equals(customerId)).findAny().ifPresent(customers::remove);
 	}
 	
 	private List<Customer> generateRandomCustomers(int n) {
