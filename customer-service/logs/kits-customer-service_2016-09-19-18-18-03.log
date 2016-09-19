@@ -1,9 +1,0 @@
-18:18:03 [main] INFO  log - Logging initialized @567ms
-18:18:03 [main] INFO  CustomerServiceServer - KITS-ERP Server initialised on port 8888
-18:18:03 [main] INFO  Server - jetty-9.3.8.v20160314
-18:18:03 [main] INFO  ContextHandler - Started o.e.j.s.ServletContextHandler@5c30a9b0{/,null,AVAILABLE}
-18:18:03 [main] INFO  ServerConnector - Started ServerConnector@6aba2b86{HTTP/1.1,[http/1.1]}{0.0.0.0:8888}
-18:18:03 [main] INFO  Server - Started @743ms
-18:18:03 [main] INFO  CustomerServiceServer - Erp Server started
-18:18:07 [qtp1658926803-15] DEBUG CustomerWebService - Creating customer with customerdata: {"name":"Kócsó Sándor","email":"kocsosg@gmail.com","phone":"+36707810861","address":{"zip":"6300","town":"Foktő","street":"Párizsi tér","houseNumber":"71"}}
-18:18:07 [qtp1658926803-15] INFO  CustomerService - Customer with name Kócsó Sándor created with customer id CQX847

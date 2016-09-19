@@ -1,9 +1,0 @@
-19:12:45 [main] INFO  log - Logging initialized @531ms
-19:12:45 [main] INFO  CustomerServiceServer - KITS-ERP Server initialised on port 8888
-19:12:45 [main] INFO  Server - jetty-9.3.8.v20160314
-19:12:46 [main] INFO  ContextHandler - Started o.e.j.s.ServletContextHandler@758f4f03{/,null,AVAILABLE}
-19:12:46 [main] INFO  ServerConnector - Started ServerConnector@62d363ab{HTTP/1.1,[http/1.1]}{0.0.0.0:8888}
-19:12:46 [main] INFO  Server - Started @1518ms
-19:12:46 [main] INFO  CustomerServiceServer - Erp Server started
-19:12:48 [qtp1652149987-16] DEBUG CustomerWebService - Creating customer with customerdata: {"name":"Kócsó Sándor","email":"kocsosg@gmail.com","phone":"+36707810861","address":{"zip":"6300","town":"Foktő","street":"Párizsi tér","houseNumber":"71"}}
-19:12:48 [qtp1652149987-16] ERROR CustomerServiceExceptionMapper - kits.erp.customerservice.domain.core.CustomerServiceException: Could not generate unique customer id

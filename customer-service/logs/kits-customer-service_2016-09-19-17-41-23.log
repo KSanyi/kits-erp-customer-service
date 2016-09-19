@@ -1,7 +1,0 @@
-17:41:23 [main] INFO  log - Logging initialized @743ms
-17:41:24 [main] INFO  CustomerServiceServer - KITS-ERP Server initialised on port 8888
-17:41:24 [main] INFO  Server - jetty-9.3.8.v20160314
-17:41:24 [main] INFO  ContextHandler - Started o.e.j.s.ServletContextHandler@9353778{/,null,AVAILABLE}
-17:41:24 [main] INFO  ServerConnector - Started ServerConnector@6f4a2cb{HTTP/1.1,[http/1.1]}{0.0.0.0:8888}
-17:41:24 [main] INFO  Server - Started @946ms
-17:41:24 [main] INFO  CustomerServiceServer - Erp Server started
