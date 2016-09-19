@@ -1,5 +1,8 @@
 package kits.erp.customerservice.infrastructure.webservice;
 
+import java.lang.invoke.MethodHandles;
+import java.net.URI;
+
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -11,51 +14,61 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import kits.erp.customerservice.application.ApplicationContext;
 import kits.erp.customerservice.domain.core.CustomerId;
 import kits.erp.customerservice.domain.core.CustomerService;
 
 @Path("customer")
-@Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CustomerWebService {
 
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
 	private final CustomerService customerService;
-	
+
 	public CustomerWebService() {
 		customerService = ApplicationContext.get().customerService;
 	}
-	
+
 	@GET
-	public JsonArray allCustomers(@DefaultValue("") @QueryParam("searchString") String searchString){
+	public JsonArray findCustomers(@DefaultValue("") @QueryParam("searchString") String searchString) {
+		logger.debug("Searching customers with searchString: '" + searchString + "'");
 		JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 		customerService.findCustomer(searchString).stream()
 			.map(WebServiceDataMappers::mapToJsonObject)
 			.forEach(arrayBuilder::add);
 		return arrayBuilder.build();
 	}
-	
+
 	@GET
 	@Path("{customerId}")
-	public JsonObject loadCustomer(@PathParam("customerId") CustomerId customerId){
+	public JsonObject loadCustomer(@PathParam("customerId") CustomerId customerId) {
+		logger.debug("Loading customer with customerId: " + customerId);
 		return customerService.loadCustomer(customerId)
 				.map(WebServiceDataMappers::mapToJsonObject)
-				.orElse(null);
+					.orElse(null);
 	}
-	
+
 	@DELETE
 	@Path("{customerId}")
-	public void deleteCustomer(@PathParam("customerId") CustomerId customerId){
+	public void deleteCustomer(@PathParam("customerId") CustomerId customerId) {
+		logger.debug("Deleting customer with customerId: " + customerId);
 		customerService.deleteCustomer(customerId);
 	}
-	
+
 	@POST
-	public String createCustomer(JsonObject jsonObject){
-		return customerService.createCustomer(WebServiceDataMappers.mapToCustomerData(jsonObject)).toString();
+	public Response createCustomer(JsonObject jsonObject) {
+		logger.debug("Creating customer with customerdata: " + jsonObject);
+		CustomerId customerId = customerService.createCustomer(WebServiceDataMappers.mapToCustomerData(jsonObject));
+		URI createdUri = URI.create("customer/" + customerId.toString());
+		return Response.created(createdUri).build();
 	}
-	
+
 }

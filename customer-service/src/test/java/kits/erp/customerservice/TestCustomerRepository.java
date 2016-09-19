@@ -42,5 +42,10 @@ public class TestCustomerRepository implements CustomerRepository {
 		}
 		return customers;
 	}
+
+	@Override
+	public boolean doesCustomerIdExist(CustomerId customerId) {
+		return customers.stream().filter(c -> c.customerId.equals(customerId)).findAny().isPresent();
+	}
 	
 }

@@ -1,0 +1,9 @@
+18:24:55 [main] INFO  log - Logging initialized @506ms
+18:24:55 [main] INFO  CustomerServiceServer - KITS-ERP Server initialised on port 8888
+18:24:55 [main] INFO  Server - jetty-9.3.8.v20160314
+18:24:55 [main] INFO  ContextHandler - Started o.e.j.s.ServletContextHandler@5c30a9b0{/,null,AVAILABLE}
+18:24:55 [main] INFO  ServerConnector - Started ServerConnector@6aba2b86{HTTP/1.1,[http/1.1]}{0.0.0.0:8888}
+18:24:55 [main] INFO  Server - Started @665ms
+18:24:55 [main] INFO  CustomerServiceServer - Erp Server started
+18:25:00 [qtp1658926803-12] DEBUG CustomerWebService - Loading customer with customerId: SXU676
+18:25:00 [qtp1658926803-12] WARN  CustomerService - Customer with customerId SXU676 not found

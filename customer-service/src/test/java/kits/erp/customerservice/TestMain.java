@@ -1,7 +1,7 @@
 package kits.erp.customerservice;
 
 import kits.erp.customerservice.application.ApplicationContext;
-import kits.erp.customerservice.infrastructure.server.CustomerServiceServer;
+import kits.erp.customerservice.infrastructure.webservice.CustomerServiceServer;
 
 public class TestMain {
 

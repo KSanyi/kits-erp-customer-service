@@ -5,7 +5,7 @@ import java.util.Random;
 import kits.erp.customerservice.domain.core.Address;
 import kits.erp.customerservice.domain.core.Customer;
 import kits.erp.customerservice.domain.core.CustomerData;
-import kits.erp.customerservice.domain.core.CustomerId;
+import kits.erp.customerservice.domain.core.CustomerIdGenerator;
 import kits.erp.customerservice.domain.core.EmailAddress;
 import kits.erp.customerservice.domain.core.Name;
 import kits.erp.customerservice.domain.core.PhoneNumber;
@@ -35,21 +35,9 @@ public class TestCustomerFactory {
 		String comment = random.nextInt(10) == 0 ? "Fontos ugyfel" : "";
 		
 		CustomerData customerData = new CustomerData(name, address, invoiceAddressIsTheSame, invoiceAddress, emailAddress, phoneNumber, comment);
-		return new Customer(generateCustomerId(), customerData);
+		return new Customer(CustomerIdGenerator.generateCustomerId(), customerData);
 	}
 	
-	private CustomerId generateCustomerId() {
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder
-		.append(createRandomChar())
-		.append(createRandomChar())
-		.append(createRandomChar())
-		.append(createRandomDigit())
-		.append(createRandomDigit())
-		.append(createRandomDigit());
-		
-		return new CustomerId(stringBuilder.toString());
-	}
 	
 	private Address generateRandomAddress() {
 		String[] zipAndTown = townPicker.pickRandomWord().split("\t");
@@ -79,10 +67,6 @@ public class TestCustomerFactory {
 			stringBuilder.append(createRandomDigit());	
 		}
 		return new PhoneNumber(stringBuilder.toString());
-	}
-	
-	private char createRandomChar() {
-		return (char)('A' + random.nextInt(26));
 	}
 	
 	private int createRandomDigit() {

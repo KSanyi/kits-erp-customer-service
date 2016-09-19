@@ -12,4 +12,6 @@ public interface CustomerRepository {
 	
 	void deleteCustomer(CustomerId customerId);
 	
+	boolean doesCustomerIdExist(CustomerId customerId);
+	
 }

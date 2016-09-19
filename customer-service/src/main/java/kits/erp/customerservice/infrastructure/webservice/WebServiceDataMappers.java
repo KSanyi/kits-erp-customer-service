@@ -60,7 +60,6 @@ class WebServiceDataMappers {
 	static CustomerData mapToCustomerData(JsonObject jsonObject) {
 		
 		Name name = new Name(jsonObject.getString(KEY_NAME));
-		
 		EmailAddress emailAddress = new EmailAddress(jsonObject.getString(KEY_EMAIL, ""));
 		PhoneNumber phoneNumber = new PhoneNumber(jsonObject.getString(KEY_PHONE, ""));
 		
@@ -69,7 +68,7 @@ class WebServiceDataMappers {
 		boolean invoiceAddressIsTheSAme = jsonObject.getBoolean(KEY_INVOICE_ADDRESS_IS_THE_SAME, true);
 		Address invoiceAddress = invoiceAddressIsTheSAme ? null : mapToAddress(jsonObject.getJsonObject(KEY_INVOICE_ADDRESS));
 		
-		String comment = jsonObject.getString(KEY_COMMENT);
+		String comment = jsonObject.getString(KEY_COMMENT, "");
 		return new CustomerData(name, address, invoiceAddressIsTheSAme, invoiceAddress, emailAddress, phoneNumber, comment);
 	}
 	

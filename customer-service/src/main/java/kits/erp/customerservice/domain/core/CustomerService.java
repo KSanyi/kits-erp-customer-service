@@ -1,11 +1,17 @@
 package kits.erp.customerservice.domain.core;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import kits.util.collections.Mappers;
 
 public class CustomerService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	private final CustomerRepository customerRepository;
 
@@ -18,11 +24,18 @@ public class CustomerService {
 		CustomerId customerId = generateCustomerId();
 		Customer customer = new Customer(customerId, customerData);
 		customerRepository.saveCustomer(customer);
+		logger.info("Customer with name " + customerData.name + " created with customer id " + customerId);
 		return customerId;
 	}
 	
 	private CustomerId generateCustomerId() {
-		return new CustomerId("XXX");
+		for(int attempt = 0;attempt < 100; attempt++){
+			CustomerId customerId = CustomerIdGenerator.generateCustomerId();
+			if(!customerRepository.doesCustomerIdExist(customerId)){
+				return customerId;
+			}
+		}
+		throw new CustomerServiceException("Could not generate unique customer id");
 	}
 	
 	private void validateCustomerData(CustomerData customerData) {
@@ -30,7 +43,10 @@ public class CustomerService {
 	}
 	
 	public void deleteCustomer(CustomerId customerId) {
-		customerRepository.deleteCustomer(customerId);
+		if(loadCustomer(customerId).isPresent()){
+			customerRepository.deleteCustomer(customerId);
+			logger.info("Customer with customer id " + customerId + " deleted");
+		}
 	}
 	
 	public void updateCustomerData(Customer customer, CustomerData updatedCustomerData) {
@@ -42,13 +58,21 @@ public class CustomerService {
 	}
 	
 	public Optional<Customer> loadCustomer(CustomerId customerId){
-		return customerRepository.loadAllCustomers().stream()
+		Optional<Customer> customer = customerRepository.loadAllCustomers().stream()
 		.filter(c -> c.customerId.equals(customerId))
 		.findAny();
+		
+		if(!customer.isPresent()){
+			logger.warn("Customer with customerId " + customerId + " not found");
+		}
+		
+		return customer;
 	}
 	
 	public List<Customer> findCustomer(String searchString){
-		return Mappers.filter(loadAllCustomers(), c -> c.matches(searchString));
+		List<Customer> foundCustomers = Mappers.filter(loadAllCustomers(), c -> c.matches(searchString));
+		logger.debug(foundCustomers.size() + " customers found for searchString '" + searchString + "'");
+		return foundCustomers;
 	}
 	
 }
