@@ -10,13 +10,15 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import kits.erp.customerservice.application.ApplicationContext;
+
 public class CustomerServiceServer extends Server {
 
 	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 	
-	public CustomerServiceServer(int httpPort) {
+	public CustomerServiceServer(int httpPort, ApplicationContext applicationContext) {
 		super(httpPort);
-		setHandler(createServletContextHandler());
+		setHandler(createServletContextHandler(applicationContext));
 		logger.info("KITS-ERP Customer Service initialised on port " + httpPort);
 	}
 	
@@ -26,18 +28,17 @@ public class CustomerServiceServer extends Server {
 		super.join();
 	}
 	
-	private ServletContextHandler createServletContextHandler() {
+	private ServletContextHandler createServletContextHandler(ApplicationContext applicationContext) {
 		ServletContextHandler servletContextHandler = new ServletContextHandler();
-		//servletContextHandler.setContextPath("");
-		servletContextHandler.addServlet(createServletHolder(), "/*");
-		
+		//servletContextHandler.setContextPath("alma");
+		servletContextHandler.addServlet(createServletHolder(applicationContext), "/*");
 		return servletContextHandler;
 	}
 	
-	private ServletHolder createServletHolder() {
+	private ServletHolder createServletHolder(ApplicationContext applicationContext) {
 		ResourceConfig config = new ResourceConfig();
 		config.register(CustomerServiceExceptionMapper.class);
-		config.register(CustomerWebService.class);
+		config.register(new CustomerWebService(applicationContext));
 		return new ServletHolder(new ServletContainer(config));
 	}
 	

@@ -42,10 +42,13 @@ public class CustomerService {
 		
 	}
 	
-	public void deleteCustomer(CustomerId customerId) {
+	public boolean deleteCustomer(CustomerId customerId) {
 		if(loadCustomer(customerId).isPresent()){
 			customerRepository.deleteCustomer(customerId);
 			logger.info("Customer with customer id " + customerId + " deleted");
+			return true;
+		} else {
+			return false;
 		}
 	}
 	

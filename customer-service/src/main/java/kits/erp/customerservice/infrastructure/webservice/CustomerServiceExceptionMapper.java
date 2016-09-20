@@ -12,27 +12,18 @@ import org.slf4j.LoggerFactory;
 import kits.erp.customerservice.domain.core.CustomerServiceException;
 
 @Provider
-class CustomerServiceExceptionMapper implements ExceptionMapper<Exception> {
+public class CustomerServiceExceptionMapper implements ExceptionMapper<CustomerServiceException> {
     
 	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 	
 	@Override
-    public Response toResponse(Exception ex) {
-    	
-    	if(ex instanceof CustomerServiceException) {
-    		logger.error(ex.toString());
-    		return Response
-    				.status(Response.Status.INTERNAL_SERVER_ERROR)
-    				.entity(ex.getMessage())
-    				.type("text/plain")
-    				.build();
-    	} else {
-    		logger.error("Unexpected error: ", ex);
-    		return Response
-    				.status(Response.Status.INTERNAL_SERVER_ERROR)
-    				.type("text/plain")
-    				.build();
-    	}
+    public Response toResponse(CustomerServiceException ex) {
+		logger.error(ex.toString());
+		return Response
+				.status(Response.Status.INTERNAL_SERVER_ERROR)
+				.entity(ex.getMessage())
+				.type("text/plain")
+				.build();
         
     }
 }

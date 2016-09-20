@@ -15,6 +15,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -33,8 +34,8 @@ public class CustomerWebService {
 
 	private final CustomerService customerService;
 
-	public CustomerWebService() {
-		customerService = ApplicationContext.get().customerService;
+	public CustomerWebService(ApplicationContext ac) {
+		customerService = ac.customerService;
 	}
 
 	@GET
@@ -53,14 +54,17 @@ public class CustomerWebService {
 		logger.debug("Loading customer with customerId: " + customerId);
 		return customerService.loadCustomer(customerId)
 				.map(WebServiceDataMappers::mapToJsonObject)
-					.orElse(null);
+					.orElseThrow(() -> new WebApplicationException(Response.Status.NOT_FOUND));
 	}
 
 	@DELETE
 	@Path("{customerId}")
 	public void deleteCustomer(@PathParam("customerId") CustomerId customerId) {
 		logger.debug("Deleting customer with customerId: " + customerId);
-		customerService.deleteCustomer(customerId);
+		boolean customerFound = customerService.deleteCustomer(customerId);
+		if(!customerFound){
+			throw new WebApplicationException(Response.Status.NOT_FOUND);
+		}
 	}
 
 	@POST
