@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import kits.erp.customerservice.domain.core.CustomerServiceException;
 
 @Provider
-public class CustomerServiceExceptionMapper implements ExceptionMapper<CustomerServiceException> {
+class CustomerServiceExceptionMapper implements ExceptionMapper<CustomerServiceException> {
     
 	private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 	
