@@ -15,6 +15,17 @@ task stage {
   dependsOn build
 }
 
+task fatJar(type: Jar) {
+	manifest {
+        attributes 'Implementation-Title': 'KITS ERP Customer Service',
+        	'Implementation-Version': 1.0,
+        	'Main-Class': 'kits.erp.customerservice.Main'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 repositories {
     mavenCentral()
     maven {
