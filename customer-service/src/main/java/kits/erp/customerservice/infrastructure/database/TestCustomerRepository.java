@@ -1,4 +1,4 @@
-package kits.erp.customerservice;
+package kits.erp.customerservice.infrastructure.database;
 
 import java.util.LinkedList;
 import java.util.List;

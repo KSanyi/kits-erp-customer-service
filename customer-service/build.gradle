@@ -15,17 +15,6 @@ task stage {
   dependsOn build
 }
 
-task fatJar(type: Jar) {
-	manifest {
-        attributes 'Implementation-Title': 'KITS ERP Customer Service',
-        	'Implementation-Version': 1.0,
-        	'Main-Class': 'kits.erp.customerservice.Main'
-    }
-    baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
 repositories {
     mavenCentral()
     maven {
@@ -36,11 +25,7 @@ repositories {
 dependencies {
     compile group: 'kits', name: 'kits-util', version: '1.0-SNAPSHOT'
 	
-    compile group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.3.8.v20160314'
-    compile group: 'org.eclipse.jetty', name: 'jetty-webapp', version: '9.3.8.v20160314'
-	
     compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version: '2.23.2'
-    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '2.23.2'
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-jetty-http', version: '2.23.2'
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-processing', version: '2.23.2'
 
@@ -52,3 +37,18 @@ dependencies {
 }
 
 mainClassName = "kits.erp.customerservice.Main"
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+    }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+shadowJar {
+  mergeServiceFiles()
+}
