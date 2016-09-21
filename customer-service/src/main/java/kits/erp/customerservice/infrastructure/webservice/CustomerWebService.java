@@ -27,6 +27,9 @@ import kits.erp.customerservice.application.ApplicationContext;
 import kits.erp.customerservice.domain.core.CustomerId;
 import kits.erp.customerservice.domain.core.CustomerService;
 
+/**
+ *  Jersey REST webservice class. No business logic!
+ */
 @Path("customer")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)

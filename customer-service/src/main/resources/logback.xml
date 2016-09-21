@@ -4,7 +4,7 @@
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <File>logs/kits-customer-service_${bySecond}.log</File>
         <encoder>
-            <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{0} - %msg%n</pattern>
+            <pattern>%d{yy.MM.dd. HH:mm:ss} [%thread] %-5level %logger - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -15,7 +15,6 @@
     </appender>
 
   <logger name="kits.erp" level="DEBUG"/>
-  <logger name="com.vaadin" level="INFO"/>
   <logger name="org.eclipse.jetty" level="INFO"/>
 
   <root level="INFO">

@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import kits.erp.customerservice.domain.core.CustomerServiceException;
 
+/**
+ * For mapping domain CustomerServiceException to HTTP 500 INTERNAL_SERVER_ERROR with the messsage only
+ */
 @Provider
 class CustomerServiceExceptionMapper implements ExceptionMapper<CustomerServiceException> {
     
@@ -18,7 +21,10 @@ class CustomerServiceExceptionMapper implements ExceptionMapper<CustomerServiceE
 	
 	@Override
     public Response toResponse(CustomerServiceException ex) {
+		
+		// dont need to log stacktrace as this is an exception from the business domain
 		logger.error(ex.toString());
+		
 		return Response
 				.status(Response.Status.INTERNAL_SERVER_ERROR)
 				.entity(ex.getMessage())

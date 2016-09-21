@@ -11,6 +11,9 @@ import kits.erp.customerservice.domain.core.EmailAddress;
 import kits.erp.customerservice.domain.core.Name;
 import kits.erp.customerservice.domain.core.PhoneNumber;
 
+/**
+ * Mapping between domain classes and Json representations. Only used for HTTP communication. 
+ */
 class WebServiceDataMappers {
 
 	private static final String KEY_ID = "customerId";

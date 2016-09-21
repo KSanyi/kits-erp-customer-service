@@ -18,6 +18,7 @@ task stage {
 repositories {
     mavenCentral()
     maven {
+    	// special maven repo for jars that are not in any publicly available repo
         url "../repo"
     }
 }
@@ -38,6 +39,7 @@ dependencies {
 
 mainClassName = "kits.erp.customerservice.Main"
 
+// required for building the "fat jar" or "shadow jar"
 buildscript {
     repositories {
         jcenter()
